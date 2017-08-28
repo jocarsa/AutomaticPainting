@@ -1,0 +1,52 @@
+<html>
+	<head>
+		<style>
+			body,html{padding:0px;margin:0px;background:black;}
+		</style>
+	</head>
+	<body>
+		<canvas id="lienzo" width=1920px height=1080px></canvas>
+		<script>
+			var lienzo = document.getElementById("lienzo")
+			var contexto = lienzo.getContext("2d")
+			var temporizador = setTimeout("bucle()",100)
+			var radio = 35;
+			var radio2 = 10;
+			var r = 127
+			var g = 127
+			var b = 127
+			x = 0
+			y = 0
+			var angulo = 0;
+			var contador = 0;
+			
+			function bucle(){
+				contador++;
+				angulo += 0.1
+				radio += (Math.random()-0.5)*0.1
+				if(radio < 0){radio = 0-radio;}
+				radio2 += (Math.random()-0.5)*0.1
+				if(radio2 < 0){radio = 0-radio;}
+				r += Math.round((Math.random()-0.5)*2)
+				g += Math.round((Math.random()-0.5)*2)
+				b += Math.round((Math.random()-0.5)*2)
+				if(r > 255){r = 255}
+				if(r < 0){r = 0;}
+				if(g > 255){g = 255}
+				if(g < 0){g = 0;}
+				if(b > 255){b = 255}
+				if(b < 0){b = 0;}
+				x += (Math.random()-0.5)*15
+				y += (Math.random()-0.5)*15
+				contexto.fillStyle = "rgb("+r+","+g+","+b+")";
+				if(contador % 1000 == 0){x *= 0.9;y *= 0.9;}
+				contexto.beginPath()
+				contexto.arc(x+Math.cos(angulo)*radio+(1920/2),y+Math.cos(angulo)*radio+(1080/2),radio2,0,Math.PI*2,true);
+				contexto.fill()
+				
+				clearTimeout(temporizador)
+				temporizador = setTimeout("bucle()",0)
+			}
+		</script>
+	</body>
+</html>
